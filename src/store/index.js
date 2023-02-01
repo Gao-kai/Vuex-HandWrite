@@ -14,7 +14,7 @@ const LoggerPlugin = (store) => {
   store.subscribe((mutation, state) => {
     const { type, payload } = mutation;
     let nextState = JSON.parse(JSON.stringify(state));
-    console.log("prevState", type, prevState,"nextState", type, nextState);
+    console.log("prevState", type, prevState, "nextState", type, nextState);
     prevState = nextState;
   });
 };
@@ -39,11 +39,12 @@ const persitsPlugin = (store) => {
 };
 
 const store = new Vuex.Store({
-	strict:true,
+  strict: true,
   plugins: [
-	persitsPlugin, 
-	// createLogger(), 
-	LoggerPlugin],
+    persitsPlugin,
+    // createLogger(),
+    LoggerPlugin,
+  ],
   state: {
     age: 100,
     // moduleA:{
@@ -71,16 +72,16 @@ const store = new Vuex.Store({
         }, 500);
       });
     },
-	sub(store, payload) {
-		let { commit } = store;
-		return new Promise((resolve, reject) => {
-		  setTimeout(() => {
-			commit("sub", payload);
-			// 修改完成之后再去修改promsie的状态 让外界也就是业务组件内部可以获取到修改的结果
-			resolve();
-		  }, 500);
-		});
-	  }
+    sub(store, payload) {
+      let { commit } = store;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          commit("sub", payload);
+          // 修改完成之后再去修改promsie的状态 让外界也就是业务组件内部可以获取到修改的结果
+          resolve();
+        }, 500);
+      });
+    },
   },
   modules: {
     moduleA: {
@@ -98,16 +99,15 @@ const store = new Vuex.Store({
           state.age = state.age + payload + 10;
         },
       },
-	  actions:{
-		add(store, payload) {
-			let { commit } = store;
-			setTimeout(() => {
-				commit("add", payload);
-				// 修改完成之后再去修改promsie的状态 让外界也就是业务组件内部可以获取到修改的结果
-
-			  }, 500);
-		  },
-	  },
+      actions: {
+        add(store, payload) {
+          let { commit } = store;
+          setTimeout(() => {
+            commit("add", payload);
+            // 修改完成之后再去修改promsie的状态 让外界也就是业务组件内部可以获取到修改的结果
+          }, 500);
+        },
+      },
       modules: {
         moduleC: {
           namespaced: true,
@@ -137,7 +137,7 @@ const store = new Vuex.Store({
 });
 
 /* 动态注册新模块registerModule */
-store.registerModule(["moduleB", "moduleX"], {
+/* store.registerModule(["moduleB", "moduleX"], {
   namespaced: true,
   state: {
     age: 500,
@@ -153,5 +153,5 @@ store.registerModule(["moduleB", "moduleX"], {
     },
   },
 });
-
+ */
 export default store;

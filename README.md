@@ -55,7 +55,7 @@ vuex.esm.js?2f62:876 [vuex] duplicate getter key: newAge
 ## 无命名空间
 state会定义在根store上面 通过store.state.模块名.prop来访问
 getters会直接合并到根store上面 通过 $store.getters.getterKey来访问 会造成重复key的问题
-mutations和actions都会收集同名的 会造成共享的问题
+mutations和actions都会收集同名的放在一个数组中 会造成共享的问题
 
 ## 有命名空间
 state同上
@@ -98,3 +98,31 @@ actions和mutations会定义在命名空间上 通过$store.commit('moduleA/add'
 模板中取vuex中的值 需要写一长串 很不优雅 是否可以简化呢
 这就需要辅助函数
 
+## 云服务项目
+
+
+## 后台管理系统项目 4个难点
+1. axios的高度封装(集合react的axios)
+    取消请求
+    自定义实例
+    队列保存
+    错误判断
+    404
+    
+2. 权限设计
+    比如组件级别
+    比如按钮级别
+    比如页面级别
+
+3. 数据持久化
+    如何做数据持久化
+
+4. 大文件上传
+    切片上传
+    断点续传
+
+5. webpack优化
+
+6. 首屏渲染如何优化
+
+7. 深挖webpack中的点

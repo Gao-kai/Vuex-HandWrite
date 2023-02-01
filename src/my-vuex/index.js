@@ -4,6 +4,8 @@ import { Vue } from "./install.js";
 
 class Store {
   constructor(options) {
+
+    console.log("options", options);
     /* 模块收集实现 */
     this._modules = new ModuleCollection(options);
     console.log("this._modules", this._modules);
@@ -125,9 +127,9 @@ class Store {
 		
 	 */
   replaceState(state) {
-	this._withCommiting(() => {
-		this._vm._data.$$state = state;
-	});
+    this._withCommiting(() => {
+      this._vm._data.$$state = state;
+    });
   }
 }
 
@@ -192,7 +194,7 @@ function resetStoreVm(store, state) {
 		第三个参数是options 里面可以声明同步和深度监听
 	*/
     store._vm.$watch(
-      ()=>store._vm._data.$$state,
+      () => store._vm._data.$$state,
       () => {
         console.assert(
           store.commiting,
@@ -222,10 +224,10 @@ function installModule(store, rootState, moduleNames, rootModule) {
     // {age:100,moduleA:{age:200,moduleC:{age:300}}}
 
     // 为了避免动态添加的模块的state无法响应式更新 这里要用set方法
-	store._withCommiting(() => {
-		Vue.set(parentState, childModuleName, rootModule.state);
-	  });
-   
+    store._withCommiting(() => {
+      Vue.set(parentState, childModuleName, rootModule.state);
+    });
+
     // parentState[childModuleName] = rootModule.state;
   }
 
